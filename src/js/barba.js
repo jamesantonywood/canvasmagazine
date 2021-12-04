@@ -1,12 +1,12 @@
 
-import barba from '@barba/core';
-import imagesLoaded from 'imagesloaded';
-import observer from './observer';
-import gsap from 'gsap';
+import barba from '@barba/core'
+import imagesLoaded from 'imagesloaded'
+import observer from './observer'
+import gsap from 'gsap'
 
 export default () => {
 
-    const bodyTag = document.querySelector('body');
+    const bodyTag = document.querySelector('body')
 
     barba.init({
         transitions: [
@@ -14,7 +14,7 @@ export default () => {
                 name: "switch",
                 once( { current, next, trigger } ) {
                     return new Promise(resolve => {
-                        const images = document.querySelectorAll('img');
+                        const images = document.querySelectorAll('img')
 
                         gsap.set(next.container, { 
                             opacity: 0. 
@@ -23,16 +23,16 @@ export default () => {
                         imagesLoaded(images, () => {
                             const timeline = gsap.timeline( { 
                                 onComplete() {
-                                    observer();
-                                    resolve();
+                                    observer()
+                                    resolve()
                                 }
-                             } );
+                             } )
     
                              timeline
                                 .to(next.container, { 
                                     opacity: 1, 
                                     delay: 1 
-                                })
+                                }) 
                         })
 
                     })
@@ -42,10 +42,10 @@ export default () => {
                     return new Promise(resolve => {
                         const timeline = new gsap.timeline({ 
                             onComplete() {
-                                current.container.remove();
-                                resolve();
+                                current.container.remove() 
+                                resolve() 
                             }
-                        });
+                        }) 
 
                         timeline
                             .to('header', {
@@ -56,7 +56,7 @@ export default () => {
                             }, 0)
                             .to(current.container, {
                                 opacity: 0,
-                            });
+                            }) 
                     })
 
                 },
@@ -71,10 +71,10 @@ export default () => {
 
                         const timeline = new gsap.timeline({ 
                             onComplete() {
-                                observer();
-                                resolve();
+                                observer()
+                                resolve()
                             }
-                        });
+                        })
                         
                         timeline
                             .set(next.container, {
@@ -88,7 +88,7 @@ export default () => {
                             }, 0)
                             .to(next.container, {
                                 opacity: 1,
-                            });
+                            })
                     })
 
                 }
@@ -98,20 +98,23 @@ export default () => {
             {
                 namespace: "products",
                 beforeEnter() {
-                    bodyTag.classList.add('product');
+                    bodyTag.classList.add('product')
                 },
                 afterLeave() {
-                    bodyTag.classList.remove('product');
+                    bodyTag.classList.remove('product')
                 }
             }
         ],
         debug: true,
-    });
+    })
 
     // re-run scripts... I can see this being UGLY if there was a lot going on
+    // Now running in the once and before hook within the init 
+    // this way could be a nice way to seperate concerns 
+    // everything could be wrapped in a pageScripts() if its more complex?
     // barba.hooks.beforeEnter((data) => {
-    //     observer();
-    // });
+    //     observer()
+    // })
 
 }
 

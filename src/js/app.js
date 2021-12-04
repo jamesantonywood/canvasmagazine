@@ -1,3 +1,3 @@
 import barbaScript from './barba'
 
-barbaScript();
+barbaScript()

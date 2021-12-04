@@ -2,7 +2,6 @@ const gulp = require('gulp');
 const webpack = require('webpack-stream');
 const browserSync = require('browser-sync').create();
 
-
 gulp.task('html', () => {
     return gulp.src('src/*.html')
         .pipe(gulp.dest('dist'));
@@ -16,7 +15,7 @@ gulp.task('css', () => {
 
 gulp.task('img', () => {
     return gulp.src('src/img/*')
-            .pipe(gulp.dest('dist/img'));
+        .pipe(gulp.dest('dist/img'));
 });
 
 gulp.task('js', () => {

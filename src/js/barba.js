@@ -23,6 +23,7 @@ export default () => {
                         imagesLoaded(images, () => {
                             const timeline = gsap.timeline( { 
                                 onComplete() {
+                                    observer();
                                     resolve();
                                 }
                              } );
